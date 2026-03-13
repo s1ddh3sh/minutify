@@ -1,0 +1,3 @@
+[submodule "external/tg-bot-cpp"]
+	path = external/tg-bot-cpp
+	url = https://github.com/reo7sp/tgbot-cpp.git
