@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.20)
 project(minutify)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 set(Boost_USE_MULTITHREADED ON)
@@ -22,4 +22,4 @@ add_executable(minutify src/main.cpp)
 
 target_include_directories(minutify PRIVATE ${PROJECT_SOURCE_DIR}/external)
 
-target_link_libraries(minutify TgBot ${CMAKE_THREAD_LIBS_INIT} ${OPENSSL_LIBRARIES} ${Boost_LIBRARIES} ${CURL_LIBRARIES} PRIVATE Td::TdStatic)
+target_link_libraries(minutify PRIVATE TgBot ${CMAKE_THREAD_LIBS_INIT} ${OPENSSL_LIBRARIES} ${Boost_LIBRARIES} ${CURL_LIBRARIES} Td::TdJson)

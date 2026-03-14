@@ -1,5 +1,6 @@
 #include "dotenv.h"
 #include <stdio.h>
+#include <td/telegram/td_json_client.h>
 #include <tgbot/tgbot.h>
 
 int main() {
@@ -18,7 +19,6 @@ int main() {
                                "Hold On, Meeting minutes on the Way");
 
       TgBot::File::Ptr file = bot.getApi().getFile(message->audio->fileId);
-
       std::string audioData = bot.getApi().downloadFile(file->filePath);
 
       printf("Downloaded audio size: %zu bytes\n", audioData.size());
