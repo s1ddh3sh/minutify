@@ -17,6 +17,9 @@ if (CURL_FOUND)
 endif()
 
 add_subdirectory(external/tg-bot-cpp)
+add_subdirectory(external/td)
 add_executable(minutify src/main.cpp)
 
-target_link_libraries(minutify TgBot ${CMAKE_THREAD_LIBS_INIT} ${OPENSSL_LIBRARIES} ${Boost_LIBRARIES} ${CURL_LIBRARIES})
+target_include_directories(minutify PRIVATE ${PROJECT_SOURCE_DIR}/external)
+
+target_link_libraries(minutify TgBot ${CMAKE_THREAD_LIBS_INIT} ${OPENSSL_LIBRARIES} ${Boost_LIBRARIES} ${CURL_LIBRARIES} PRIVATE Td::TdStatic)

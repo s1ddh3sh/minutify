@@ -1,8 +1,9 @@
+#include "dotenv.h"
 #include <stdio.h>
 #include <tgbot/tgbot.h>
 
 int main() {
-  TgBot::Bot bot(getenv("BOT_TOKEN"));
+  TgBot::Bot bot(dotenv::getenv("BOT_TOKEN"));
   bot.getEvents().onCommand("start", [&bot](TgBot::Message::Ptr message) {
     bot.getApi().sendMessage(message->chat->id, "Hi!");
   });
@@ -11,12 +12,19 @@ int main() {
       return;
     }
     if (message->audio) {
-      printf("Yep its a audio file %s\n", message->audio->fileName.c_str());
+      printf("Audio received. fileId: %s\n", message->audio->fileId.c_str());
+
       bot.getApi().sendMessage(message->chat->id,
                                "Hold On, Meeting minutes on the Way");
+
+      TgBot::File::Ptr file = bot.getApi().getFile(message->audio->fileId);
+
+      std::string audioData = bot.getApi().downloadFile(file->filePath);
+
+      printf("Downloaded audio size: %zu bytes\n", audioData.size());
     } else {
       bot.getApi().sendMessage(message->chat->id,
-                               "Please enter audio(m4a) file!");
+                               "Please send an audio (m4a) file!");
     }
   });
   try {
